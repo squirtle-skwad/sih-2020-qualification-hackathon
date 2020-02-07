@@ -2,9 +2,11 @@
 import dlib
 import cv2
 from imutils import face_utils
-from .utility import calculate_eye_aspect_ratio, mouth_open, get_score
+from .utility import calculate_eye_aspect_ratio, mouth_open, get_score, sample_long_running_recognize
 from .gaze_tracking import GazeTracking
 import os
+import moviepy.editor as mp
+
 
 
 
@@ -105,3 +107,9 @@ def get_analysis(file_location, drowsy_threshold = 0.3, yawn_threshold = 30):
     return final_list
     #cv2.destroyAllWindows()  
     
+
+def get_audio_analysis(video_file):
+    clip = mp.VideoFileClip(video_file)
+    clip.audio.write_audiofile(os.getcwd()+"/media/theaudio.wav", ffmpeg_params=["-ac", "1"])
+    result_list = sample_long_running_recognize(os.getcwd()+"/media/theaudio.wav")
+    return result_list

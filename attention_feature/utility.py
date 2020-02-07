@@ -1,5 +1,39 @@
 import numpy as np
 from scipy.spatial import distance as dist
+from google.cloud import speech_v1p1beta1
+import io
+
+
+def get_start_end(word):
+    start = float((str(word.start_time.seconds)+"."+str(word.start_time.nanos))[0:3])
+    end = float((str(word.end_time.seconds)+"."+str(word.end_time.nanos))[0:3])
+    return start, end
+
+def sample_long_running_recognize(local_file_path):
+    client = speech_v1p1beta1.SpeechClient()
+
+    enable_speaker_diarization = True
+
+    language_code = "en-US"
+    config = {
+        "enable_speaker_diarization": enable_speaker_diarization,
+        "language_code": language_code,   
+    }
+    with io.open(local_file_path, "rb") as f:
+        content = f.read()
+    audio = {"content": content}
+    
+    operation = client.long_running_recognize(config, audio)
+
+    print(u"Waiting for operation to complete...")
+    response = operation.result()
+    alternative = response.results[0].alternatives[0]
+    result_list = []
+    for word in alternative.words:
+        start, end = get_start_end(word) 
+        result_list.append({"start":start,"end": end,"value":word.word})
+    return result_list
+
 
 def get_score(drowsy, yawn, center):
     score = 0
