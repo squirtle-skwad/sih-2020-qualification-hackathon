@@ -1,19 +1,32 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <form method="post" enctype="multipart/form-data" class="d-flex flex-column">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="fieldWrapper">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-                {% if field.help_text %}
-                <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
+    <div class="row justify-content-center">
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                Video Lectures
             </div>
-        {% endfor %}
-        <div class="py-4 px-2">
-            <button class="btn btn-info btn-lg" type="submit">Analyse</button>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.errors }}
+                            {{ field.label_tag }} 
+                            <div class="btn btn-light">
+                                {{ field }}
+                            </div>
+                            {% if field.help_text %}
+                            <p class="help">{{ field.help_text|safe }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="py-4 px-2 text-center">
+                        <button class="btn btn-info btn-lg" type="submit">Analyse</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
+    
 {% endblock %}
