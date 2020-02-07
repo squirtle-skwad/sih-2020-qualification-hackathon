@@ -98,7 +98,7 @@ def get_analysis(file_location, drowsy_threshold = 0.3, yawn_threshold = 30):
             #    pass                
                 #webcam.release()
                 #cv2.destroyAllWindows()
-                final_list.append((x/1000,y))
+                final_list.append([x/1000,y])
         else:
         
             webcam.release()
