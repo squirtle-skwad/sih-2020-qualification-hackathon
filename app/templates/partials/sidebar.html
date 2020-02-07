@@ -13,11 +13,18 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="{% url 'index' %}">
-            <span>Results</span>
-        </a>
         <a class="nav-link" href="{% url 'upload' %}">
             <span>Upload Video</span>
+        </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'student_video' %}">
+            <span>Join a lecture</span>
+        </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'index' %}">
+            <span>Results</span>
         </a>
     </li>
 

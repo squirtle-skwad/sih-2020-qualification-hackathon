@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     path('results/', views.index, name='index'),
     path('', views.video_upload, name='upload'),
+    path('student/', views.student_video, name='student_video')
 ]
