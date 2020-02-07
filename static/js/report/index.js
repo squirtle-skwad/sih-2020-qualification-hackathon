@@ -154,3 +154,67 @@ var config = {
     }
   }
 };
+
+const speech_data = JSON.parse(document.getElementById("speech_data").value);
+google.charts.load("current", { packages: ["timeline"] });
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var container = document.getElementById("example5.1");
+  var chart = new google.visualization.Timeline(container);
+  var dataTable = new google.visualization.DataTable();
+  const rowsData = speech_data.map(data => {
+    return [
+      data.value,
+      "Student 1",
+      new Date(0, 0, 0, 0, 0, data.start),
+      new Date(0, 0, 0, 0, 0, data.end)
+    ];
+  });
+  dataTable.addColumn({ type: "string", id: "Word" });
+  dataTable.addColumn({ type: "string", id: "Student Name" });
+  dataTable.addColumn({ type: "date", id: "Start Time" });
+  dataTable.addColumn({ type: "date", id: "End Time" });
+  dataTable.addRows(rowsData);
+  //   dataTable.addRows([
+  //     [
+  //       "Magnolia Room",
+  //       "Beginning JavaScript",
+  //       new Date(0, 0, 0, 12, 0, 0),
+  //       new Date(0, 0, 0, 13, 30, 0)
+  //     ],
+  //     [
+  //       "Magnolia Room",
+  //       "Intermediate JavaScript",
+  //       new Date(0, 0, 0, 14, 0, 0),
+  //       new Date(0, 0, 0, 15, 30, 0)
+  //     ],
+  //     [
+  //       "Magnolia Room",
+  //       "Advanced JavaScript",
+  //       new Date(0, 0, 0, 16, 0, 0),
+  //       new Date(0, 0, 0, 17, 30, 0)
+  //     ],
+  //     [
+  //       "Willow Room",
+  //       "Beginning Google Charts",
+  //       new Date(0, 0, 0, 12, 30, 0),
+  //       new Date(0, 0, 0, 14, 0, 0)
+  //     ],
+  //     [
+  //       "Willow Room",
+  //       "Intermediate Google Charts",
+  //       new Date(0, 0, 0, 14, 30, 0),
+  //       new Date(0, 0, 0, 16, 0, 0)
+  //     ],
+  //     [
+  //       "Willow Room",
+  //       "Advanced Google Charts",
+  //       new Date(0, 0, 0, 16, 30, 0),
+  //       new Date(0, 0, 0, 18, 0, 0)
+  //     ]
+  //   ]);
+  var options = {
+    timeline: { colorByRowLabel: true }
+  };
+  chart.draw(dataTable, options);
+}
