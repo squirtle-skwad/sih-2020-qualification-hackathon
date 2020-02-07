@@ -3,7 +3,7 @@ from scipy.spatial import distance as dist
 
 def get_score(drowsy, yawn, center):
     score = 0
-    if drowsy:
+    if not drowsy:
         score +=1
     else:
         score +=0.25
