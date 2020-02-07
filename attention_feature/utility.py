@@ -66,3 +66,23 @@ def mouth_open(image, predictor, detector):
     lip_distance = abs(top_lip_center - bottom_lip_center)
     return lip_distance
 
+def format_data(data_list):
+    formatted_data = {}
+    label_s = []
+    labels = []
+    drowsy_data = []
+    points = []
+    for data in data_list: 
+        label_s.append(str(round(data[0],1)) + " s")
+        labels.append(round(data[0],1))
+        drowsy_data.append(data[1]["score"])
+        points.append(dict({"x":round(data[0],1),"y": data[1]["score"]}))
+    formatted_data["labels"] = labels
+    formatted_data["info"] = drowsy_data
+    formatted_data["labels_string"] = label_s
+    formatted_data["points"] = points
+    return formatted_data
+
+
+
+

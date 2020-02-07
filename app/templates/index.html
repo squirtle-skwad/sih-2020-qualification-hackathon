@@ -1,168 +1,76 @@
-{% extends 'base.html' %}
-
-{% block main %}
-    <div class="row">
-
-        <!-- Area Chart -->
-        <div class="col">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">CHART</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
-
-                            <a class="dropdown-item" href="#">Another action</a>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card">
-                    <canvas id="canvas" style="display: block; height: 334px; width: 669px;" width="836" height="417"
-                            class="chartjs-render-monitor"></canvas>
-                    <script>
-                        var lineChartData = {
-                            labels: ['8:00', '8:10', '8:20', '8:30', '8:40'],
-                            datasets: [{
-                                label: 'Student1',
-                                borderColor: window.chartColors.red,
-                                backgroundColor: window.chartColors.red,
-                                fill: false,
-                                data: [3, 4, 2, 5, 1, 0],
-
-                                yAxisID: 'y-axis-1',
-                            }]
-                        };
-                        var randomScalingFactor = function () {
-                            return Math.round(Math.random() * 100);
-                        };
-
-                        var config = {
-                            type: 'doughnut',
-                            data: {
-                                datasets: [{
-                                    data: [
-                                        randomScalingFactor(),
-                                        randomScalingFactor(),
-                                        randomScalingFactor(),
-                                        randomScalingFactor(),
-                                        randomScalingFactor(),
-                                    ],
-                                    backgroundColor: [
-                                        window.chartColors.red,
-                                        window.chartColors.orange,
-                                        window.chartColors.yellow,
-                                        window.chartColors.green,
-                                        window.chartColors.blue,
-                                    ],
-                                    label: 'Dataset 1'
-                                }],
-                                labels: [
-                                    'Red',
-                                    'Orange',
-                                    'Yellow',
-                                    'Green',
-                                    'Blue'
-                                ]
-                            },
-                            options: {
-                                responsive: true,
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Chart.js Doughnut Chart'
-                                },
-                                animation: {
-                                    animateScale: true,
-                                    animateRotate: true
-                                }
-                            }
-                        };
-
-                        window.onload = function () {
-                            var ctx = document.getElementById('canvas').getContext('2d');
-                            var ctx2 = document.getElementById('myPieChart').getContext('2d');
-                            window.myDoughnut = new Chart(ctx2, config);
-                            window.myLine = Chart.Line(ctx, {
-                                data: lineChartData,
-                                options: {
-                                    responsive: true,
-                                    hoverMode: 'index',
-                                    stacked: false,
-                                    title: {
-                                        display: true
-
-                                    },
-                                    scales: {
-                                        yAxes: [{
-                                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                                            display: true,
-                                            position: 'left',
-                                            id: 'y-axis-1',
-                                        }, {
-                                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                                            display: true,
-                                            position: 'right',
-                                            id: 'y-axis-2',
-
-                                            // grid line settings
-                                            gridLines: {
-                                                drawOnChartArea: false, // only want the grid lines for one axis to show up
-                                            },
-                                        }],
-                                    }
-                                }
-                            });
-
-                        };
-
-
-                    </script>
-
-                </div>
-            </div>
+{% extends 'base.html' %} {% load static %} {% block main %}
+<div class="row">
+  <!-- Area Chart -->
+  <div class="col">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div
+        class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+      >
+        <h6 class="m-0 font-weight-bold text-primary">CHART</h6>
+        <div class="dropdown no-arrow">
+          <a
+            class="dropdown-toggle"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+            aria-labelledby="dropdownMenuLink"
+          >
+            <a class="dropdown-item" href="#">Another action</a>
+          </div>
         </div>
+      </div>
+
+      <!-- Card Body -->
+      <input type="hidden" id="myVar" name="variable" value="{{ analysis }}" />
+      <div class="card">
+        <canvas
+          id="canvas"
+          style="display: block; height: 334px; width: 669px;"
+          width="836"
+          height="417"
+          class="chartjs-render-monitor"
+        ></canvas>
+        <p id="test"></p>
+      </div>
     </div>
-    <div class="row">
+  </div>
+</div>
 
-        <!-- Content Column -->
-        <div class="col-xl-6 col-xs-12">
-
-            <!-- Project Card Example -->
-            <div class="card shadow mb-4" style="">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Overall Attention</h6>
-                </div>
-                <div class="card-body">
-                    <h4 class="small font-weight-bold">1 <span class="float-right">20%</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20"
-                             aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-            </div>
+<div class="row">
+  <!-- Content Column -->
+  <div class="col-xl-6 col-xs-12">
+    <!-- Project Card Example -->
+    <div class="card shadow mb-4" style="">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Overall Attention</h6>
+      </div>
+      <div class="card-body">
+        <h4 class="small font-weight-bold">
+          1 <span class="float-right">20%</span>
+        </h4>
+        <div class="progress mb-4">
+          <div
+            class="progress-bar bg-danger"
+            role="progressbar"
+            style="width: 20%"
+            aria-valuenow="20"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
         </div>
-        <div class="col-xl-6 col-xs-12">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-pie">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<script src="{% static 'js/report/index.js' %}"></script>
 {% endblock %}
