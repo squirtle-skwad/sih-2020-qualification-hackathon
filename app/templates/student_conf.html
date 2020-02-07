@@ -2,9 +2,15 @@
 
 {% block main %}
     <div class="row">
-          <div class="col d-flex flex-column">
+          <div class="col d-flex flex-column justify-content-center align-items-center">
               <h2>Student feed</h2>
-              <video autoplay="true" playsinline="true" id="localFeed"></video>
+              <video autoplay="true"
+                     playsinline="true"
+                     id="localFeed"
+                     class="shadow-lg rounded"
+                     width="640"
+                     height="480"
+              ></video>
           </div>
     </div>
     <script>
